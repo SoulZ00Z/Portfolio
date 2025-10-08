@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="style.css">
+</head>
+<body style="background-color: #f0f0f0;">
+
+	<nav>
+        <ul style="list-style: none; margin: 0; padding: 0; display: flex; justify-content: center; background-color: #333;">
+            <li style="margin: 0 15px;">
+                <a href="index.html" style="text-decoration: none; color: white; font-size: 1.2em;">PORTFOLIO</a>
+            </li>
+            <li style="margin: 0 15px;">
+                <a href="project.html" style="text-decoration: none; color: white; font-size: 1.2em;">PROJECT</a>
+            </li>
+            <li style="margin: 0 15px;">
+                <a href="info.html" style="text-decoration: none; color: white; font-size: 1.2em;">INFO</a>
+            </li>
+            <li style="margin: 0 15px;">
+                <a href="#services" style="text-decoration: none; color: white; font-size: 1.2em;">?</a>
+            </li>
+            <li style="margin: 0 15px;">
+                <a href="#contact" style="text-decoration: none; color: white; font-size: 1.2em;">?</a>
+            </li>
+            <li style="margin: 0 15px;">
+                <a href="#contact" style="text-decoration: none; color: white; font-size: 1.2em;">?</a>
+            </li>
+            
+        </ul>
+    </nav>
+	
+
+	<main>
+
+        <!-- SlideShow Container -->
+<div class="slideContainer">
+
+    <div class="mySlides fade">
+      <div class="slideOrder">1 / 4</div>
+      <img src="Totoro.jpg" style="width:100%">
+      <div class="text">Totoro</div>
+    </div>
+  
+    <div class="mySlides fade">
+      <div class="slideOrder">2 / 4</div>
+      <img src="Bowsette.jpg" style="width:100%">
+      <div class="text">Sky</div>
+    </div>
+  
+    <div class="mySlides fade">
+      <div class="slideOrder">3 / 4</div>
+      <img src="Link.webp" style="width:100%">
+      <div class="text">Link</div>
+    </div>
+
+     <div class="mySlides fade">
+        <div class="slideOrder">4 / 4</div>
+        <img src="LinkZ.jpg" style="width:100%">
+        <div class="text">LinkZ</div>
+    </div>
+  
+    <a class="prev" onclick="navControl(-1)">&#10094;</a>
+    <a class="next" onclick="navControl(1)">&#10095;</a>
+  </div>
+  <br>
+  
+  
+  <div style="text-align:center">
+    <span class="dot" onclick="thisSlide(1)"></span>
+    <span class="dot" onclick="thisSlide(2)"></span>
+    <span class="dot" onclick="thisSlide(3)"></span>
+    <span class="dot" onclick="thisSlide(4)"></span>
+  </div>
+    
+    
+    </main>
+	
+	<footer>
+	</footer>
+	<script src="script.js"></script>
+</body>
+</html>

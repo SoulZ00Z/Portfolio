@@ -1,0 +1,21 @@
+/* Projects Styles */
+@import url('style.css');
+
+
+.projects-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.projects-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.projects-header h1 {
+    color: #2c3e50;
+    font-size: 2.5rem;
+}
+
+
