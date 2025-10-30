@@ -1,4 +1,4 @@
-# Compiled class files
+# Compiled cl files
 *.class
 
 # Build directories
@@ -6,7 +6,7 @@ build/
 dist/
 target/
 
-# NetBeans
+# NetB
 nbproject/private/
 .nb-gradle/
 
@@ -21,7 +21,7 @@ nbproject/private/
 # Log files
 *.log
 
-# Package Files
+# Pckge files
 *.jar
 *.war
 *.ear
@@ -31,17 +31,17 @@ nbproject/private/
 .DS_Store
 Thumbs.db
 
-# Database files
+# DB files
 *.accdb
 *.mdb
 *.db
 
-# Temporary files
+# Temp files
 *.tmp
 *.bak
 *.swp
 *~
 
-# Application specific
+# App specific
 Portfolio.accdb
 
