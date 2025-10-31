@@ -1,9 +1,15 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    Boolean isLoggedIn = (Boolean) session.getAttribute("isLoggedIn");
+    com.portfolio.GuestBO guest = (com.portfolio.GuestBO) session.getAttribute("guest");
+    boolean showGuest = (isLoggedIn != null && isLoggedIn && guest != null);
+%>
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
 	<title></title>
-	<meta charset="utf-8">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="CSS/index.css">
 </head>
 <body style="background-color: #f0f0f0;">
@@ -18,12 +24,18 @@
             <li style="margin: 0 15px;">
                 <a href="info.jsp" style="text-decoration: none; color: white; font-size: 1.2em;">INFO</a>
             </li>
+            <% if (showGuest) { %>
             <li style="margin: 0 15px;">
-                <a href="user.jsp" style="text-decoration: none; color: white; font-size: 1.2em;">USER</a>
+                <a href="guest.jsp" style="text-decoration: none; color: white; font-size: 1.2em;">GUEST</a>
             </li>
+            <li style="margin: 0 15px;">
+                <a href="LogoutServlet" style="text-decoration: none; color: white; font-size: 1.2em;">LOGOUT</a>
+            </li>
+            <% } else { %>
             <li style="margin: 0 15px;">
                 <a href="login.jsp" style="text-decoration: none; color: white; font-size: 1.2em;">LOGIN</a>
             </li>
+            <% } %>
         </ul>
     </nav>
 	

@@ -8,30 +8,28 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
 
-    private String URL;
+    private GuestDAO guestDAO;
 
     @Override
     public void init() throws ServletException {
         super.init();
-        URL = "jdbc:ucanaccess://C:/Users/joshu/Desktop/PortfolioNB/Portfolio.accdb";
+        // DAOs will be initialized lazily when needed to avoid database connection issues.
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {
         
-        String GuestId = request.getParameter("GuestID");
-        String PW = request.getParameter("PW");
+        // Get form parameters.
+        String GuestID = request.getParameter("GuestID");
+        String Password = request.getParameter("PW");
         
-        if (GuestId == null || GuestId.trim().isEmpty() || 
-            PW == null || PW.trim().isEmpty()) {
+        // See if input field is empty.
+        if (GuestID == null || GuestID.trim().isEmpty() || 
+            Password == null || Password.trim().isEmpty()) {
             request.setAttribute("errorMessage", "Please fill in every field.");
             request.getRequestDispatcher("login.jsp").forward(request, response);
             return;
@@ -39,33 +37,36 @@ public class LoginServlet extends HttpServlet {
         
         try {
             HttpSession session = request.getSession();
-
-            try (Connection conn = DriverManager.getConnection(URL)) {
-                String sql = "SELECT GuestID FROM GuestInfo WHERE GuestID = ? AND PW = ?";
-                try (PreparedStatement ps = conn.prepareStatement(sql)) {
-                    ps.setString(1, GuestId.trim());
-                    ps.setString(2, PW);
-                    try (ResultSet rs = ps.executeQuery()) {
-                        if (rs.next()) {
-                            session.setAttribute("user", GuestId.trim());
-                            session.setAttribute("PW", PW);
-                            response.sendRedirect("user.jsp");
-                        } else {
-                            request.setAttribute("errorMessage", "Invalid GuestID or PW, please try again.");
-                            request.getRequestDispatcher("login.jsp").forward(request, response);
-                        }
-                    }
-                }
+            
+            // Initialize GuestDAO only when needed.
+            if (guestDAO == null) {
+                guestDAO = new GuestDAO();
             }
+            
+            // Verify guest info.
+            GuestBO guest = guestDAO.verifyGuest(GuestID.trim(), Password.trim());
+            
+            if (guest != null) {
+                // Guest login success!
+                session.setAttribute("guest", guest);
+                session.setAttribute("isLoggedIn", true);
+                session.setAttribute("userType", "guest");
+                response.sendRedirect("guest.jsp");
+            } else {
+                // Guest login failed!
+                request.setAttribute("errorMessage", "Invalid Guest ID or Password, please try again.");
+                request.getRequestDispatcher("login.jsp").forward(request, response);
+            }
+            
         } catch (Exception e) {
             System.err.println("Login error: " + e.getMessage());
             e.printStackTrace();
-            request.setAttribute("errorMessage", "Error logging in! " + e.getMessage() + " Check your input.");
+            request.setAttribute("errorMessage", "Error trying to login: " + e.getMessage());
             request.getRequestDispatcher("login.jsp").forward(request, response);
-            return;
         }
     }
     
+    // Redirect to login page.
     protected void doGet(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {
         response.sendRedirect("login.jsp");

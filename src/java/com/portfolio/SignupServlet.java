@@ -67,7 +67,7 @@ public class SignupServlet extends HttpServlet {
         } catch (Exception e) {
             System.err.println("Signup error: " + e.getMessage());
             e.printStackTrace();
-            request.setAttribute("errorMessage", "Error trying to create account: " + e.getMessage());
+            request.setAttribute("errorMessage", "Error trying to sign up: " + e.getMessage());
             request.getRequestDispatcher("signup.jsp").forward(request, response);
         }
     }

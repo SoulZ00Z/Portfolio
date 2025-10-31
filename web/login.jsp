@@ -1,9 +1,13 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <!DOCTYPE html>
+<!-- Guest Login -->
 <html lang="en">
 <head>
-    <title>Login - Sportshub</title>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="CSS/login.css">
+    <title>Login - Portfolio</title>
 </head>
 <body>
     <nav>
@@ -17,49 +21,78 @@
             <li style="margin: 0 15px;">
                 <a href="info.jsp" style="text-decoration: none; color: white; font-size: 1.2em;">INFO</a>
             </li>
+            <% 
+                Boolean isLoggedIn = (Boolean) session.getAttribute("isLoggedIn");
+                com.portfolio.GuestBO guest = (com.portfolio.GuestBO) session.getAttribute("guest");
+                boolean showGuest = (isLoggedIn != null && isLoggedIn && guest != null);
+                if (showGuest) { 
+            %>
+            <li style="margin: 0 15px;">
+                <a href="guest.jsp" style="text-decoration: none; color: white; font-size: 1.2em;">GUEST</a>
+            </li>
+            <li style="margin: 0 15px;">
+                <a href="LogoutServlet" style="text-decoration: none; color: white; font-size: 1.2em;">LOGOUT</a>
+            </li>
+            <% } else { %>
             <li style="margin: 0 15px;">
                 <a href="login.jsp" style="text-decoration: none; color: white; font-size: 1.2em;">LOGIN</a>
             </li>
+            <% } %>
         </ul>
     </nav>
 
     <main>
-        <div class="login-header">
-            <h1>Login</h1>
-            <p>Welcome! Login to view info.</p>
-        </div>
-        
-        <!-- Error/success messages. -->
-        <% if (request.getAttribute("errorMessage") != null) { %>
-            <div class="error-message"><%= request.getAttribute("errorMessage") %></div>
-        <% } %>
-        <% if (request.getAttribute("successMessage") != null) { %>
-            <div class="success-message"><%= request.getAttribute("successMessage") %></div>
-        <% } %>
-        
-        <form id="loginForm" action="LoginServlet" method="post">
-            <section>
-                <label class="textfield-labels" for="GuestID">Guest ID:</label>
-                <div class="textfield-container">
-                    <input type="text" id="GuestID" name="GuestID" class="textfields" required>
+        <form action="LoginServlet" method="post">
+            <div class="login-header">
+                <h2>Login</h2>
+                <p>or <a href="signup.jsp" class="auth-link">Sign Up</a></p>
+            </div>
+            
+            <% if (request.getAttribute("errorMessage") != null) { %>
+                <div class="error-message">
+                    <%= request.getAttribute("errorMessage") %>
                 </div>
+            <% } %>
+            
+            <% if (request.getAttribute("successMessage") != null) { %>
+                <div class="success-message">
+                    <%= request.getAttribute("successMessage") %>
+                </div>
+            <% } %>
+            
+            <section class="textfield-container">
+                <label for="GuestID" class="textfield-labels">Guest ID:</label>
+                <input type="text" id="GuestID" name="GuestID" class="textfields" placeholder=" " required>
             </section>
             
-            <section>
-                <label class="textfield-labels" for="PW">PW:</label>
-                <div class="textfield-container">
-                    <input type="password" id="PW" name="PW" class="textfields" required>
-                </div>
+            <section class="textfield-container">
+                <label for="PW" class="textfield-labels">PW:</label>
+                <input type="password" id="PW" name="PW" class="textfields" placeholder=" " required>
             </section>
             
-            <div class="submit">
-                <input type="submit" value="Login">
+            <section class="submit">
+                <input type="submit" value="Login" id="login">
+            </section>
+            
+            <div class="bottom-link">
+                <a href="" class="auth-link">Forgot PW?</a>
             </div>
         </form>
-        
-        <div class="bottom-link">
-            <p>New here? Sign Up! <a href="signup.jsp">Signup</a></p>
-        </div>
     </main>
+    
+    <footer>
+        <section>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </section>
+        <section>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </section>
+    </footer>
 </body>
 </html>

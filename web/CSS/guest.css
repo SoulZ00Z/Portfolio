@@ -31,13 +31,13 @@ main{
     height: 100vh;
 }
 
-.user-header{
+.guest-header{
     text-align: center;
     margin-bottom: 40px;
     color: white;
 }
 
-.user-container {
+.guest-container {
     height: auto;
     width: 30%;
     padding: 4% 4%;
@@ -47,7 +47,7 @@ main{
     opacity: 0.97;
 }
 
-.user-info {
+.guest-info {
     background: #1d1d1d;
     color: white;
     padding: 18px 25px;

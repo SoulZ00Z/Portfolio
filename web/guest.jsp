@@ -1,9 +1,21 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    // Check if guest is logged in.
+    Boolean isLoggedIn = (Boolean) session.getAttribute("isLoggedIn");
+    com.portfolio.GuestBO guest = (com.portfolio.GuestBO) session.getAttribute("guest");
+    
+    if (isLoggedIn == null || !isLoggedIn || guest == null) {
+        response.sendRedirect("login.jsp");
+        return;
+    }
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>User - Portfolio</title>
-    <meta charset="utf-8">
-    <link rel="stylesheet" href="CSS/user.css">
+    <title>Guest - Portfolio</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="CSS/guest.css">
 </head>
 <body style="background-color: #f0f0f0;">
     <nav>
@@ -18,7 +30,7 @@
                 <a href="info.jsp" style="text-decoration: none; color: white; font-size: 1.2em;">INFO</a>
             </li>
             <li style="margin: 0 15px;">
-                <a href="user.jsp" style="text-decoration: none; color: white; font-size: 1.2em;">USER</a>
+                <a href="guest.jsp" style="text-decoration: none; color: white; font-size: 1.2em;">GUEST</a>
             </li>
             <li style="margin: 0 15px;">
                 <a href="LogoutServlet" style="text-decoration: none; color: white; font-size: 1.2em;">LOGOUT</a>
@@ -27,17 +39,16 @@
     </nav>
 
     <main>
-        <div class="user-container">
-            <div class="user-header">
-                <h1>Welcome to Portfolio!</h1>
-                <p>You are successfully logged in.</p>
+        <div class="guest-container">
+            <div class="guest-header">
+                <h1>Welcome to this Portfolio!</h1>
+                <p></p>
             </div>
             
-            <div class="user-info">
+            <div class="guest-info">
                 <h3>Guest Info</h3>
-                <p><strong>Guest ID:</strong> <%= session.getAttribute("user") %></p>
-                <p><strong>Phone Number:</strong> <%= session.getAttribute("PhoneNumber") %></p>
-                <p><strong>PW:</strong> <%= session.getAttribute("PW") %></p>
+                <p><strong>Guest ID:</strong> <%= guest.getGuestID() %></p>
+                <p><strong>Phone Number:</strong> <%= guest.getPhoneNumber() != null ? guest.getPhoneNumber() : "N/A" %></p>
             </div>
             
             <div style="text-align: center;">
@@ -47,3 +58,4 @@
     </main>
 </body>
 </html>
+
