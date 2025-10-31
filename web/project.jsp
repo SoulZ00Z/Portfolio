@@ -4,7 +4,7 @@
 <head>
 	<title></title>
 	<meta charset="utf-8">
-	<link rel="stylesheet" href="project.css">
+	<link rel="stylesheet" href="CSS/project.css">
 </head>
 <body style="background-color: #f0f0f0;">
 
@@ -76,6 +76,6 @@
 	
 	<footer>
 	</footer>
-	<script src="script.js"></script>
+	<script src="JS/script.js"></script>
 </body>
 </html>

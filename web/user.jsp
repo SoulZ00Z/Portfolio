@@ -3,7 +3,7 @@
 <head>
     <title>User - Portfolio</title>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="user.css">
+    <link rel="stylesheet" href="CSS/user.css">
 </head>
 <body style="background-color: #f0f0f0;">
     <nav>

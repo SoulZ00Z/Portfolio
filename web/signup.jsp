@@ -3,7 +3,7 @@
 <head>
     <title>Sign Up - Portfolio</title>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="signup.css">
+    <link rel="stylesheet" href="CSS/signup.css">
 </head>
 <body>
     <nav>

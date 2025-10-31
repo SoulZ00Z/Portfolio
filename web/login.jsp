@@ -3,7 +3,7 @@
 <head>
     <title>Login - Sportshub</title>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="CSS/login.css">
 </head>
 <body>
     <nav>
