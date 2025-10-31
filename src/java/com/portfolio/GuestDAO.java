@@ -14,11 +14,11 @@ public class GuestDAO {
         try {
             this.conn = dbConnection.getConnection();
             if (conn == null) {
-                throw new SQLException("Connection failed.");
+                throw new RuntimeException("Error connecting to DB");
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
-            throw new RuntimeException("Connection to DB failed.", e);
+            throw new RuntimeException("Connection error: " + e.getMessage(), e);
         }
     }
     
@@ -67,19 +67,29 @@ public class GuestDAO {
     }
     
     // Insert guest.
-    public void insertGuest(GuestBO guest, String password) {
+    public void insertGuest(String guestID, String password, String phoneNumber) throws SQLException {
         String sql = "INSERT INTO GuestInfo (GuestID, PW, PhoneNumber) VALUES(?,?,?)";
         
         try (PreparedStatement statement = conn.prepareStatement(sql)) {
-            statement.setString(1, guest.getGuestID());
+            statement.setString(1, guestID);
             statement.setString(2, password);
-            statement.setString(3, guest.getPhoneNumber());
+            if (phoneNumber == null || phoneNumber.trim().isEmpty()) {
+                statement.setNull(3, java.sql.Types.VARCHAR);
+            } else {
+                statement.setString(3, phoneNumber);
+            }
             
-            statement.executeUpdate();
-            System.out.println("Insert success!");
+            int rowsAffected = statement.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Insert successful.");
+            } else {
+                System.out.println("Insert failed. No rows edited.");
+                throw new SQLException("Insert failed. No rows edited");
+            }
         } catch (SQLException e) {
-            System.out.println("Insert fail!");
+            System.out.println("Insert failed: " + e.getMessage());
             e.printStackTrace();
+            throw e;
         }
     }
     
@@ -129,5 +139,25 @@ public class GuestDAO {
         }
         
         return successDelete;
+    }
+    
+    // Check if guest ID exists.
+    public boolean guestIDExists(String guestID) {
+        boolean exists = false;
+        String sql = "SELECT COUNT(*) FROM GuestInfo WHERE GuestID = ?";
+        
+        try (PreparedStatement statement = conn.prepareStatement(sql)) {
+            statement.setString(1, guestID);
+            
+            try (ResultSet rs = statement.executeQuery()) {
+                if (rs.next()) {
+                    exists = rs.getInt(1) > 0;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return exists;
     }
 }

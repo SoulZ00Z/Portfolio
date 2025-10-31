@@ -54,9 +54,13 @@
                 </div>
             <% } %>
             
-            <% if (request.getAttribute("successMessage") != null) { %>
+            <% 
+                String successMessage = (String) session.getAttribute("successMessage");
+                if (successMessage != null) {
+                    session.removeAttribute("successMessage");
+            %>
                 <div class="success-message">
-                    <%= request.getAttribute("successMessage") %>
+                    <%= successMessage %>
                 </div>
             <% } %>
             
